@@ -1,0 +1,12 @@
+# Catalog entry — the canonical shape every module's index entry follows (doc 04 §6).
+name: example-hello
+summary: A trivial, deterministic greeting module used to prove the factory's gates.
+category: foundation/example
+tier: stable
+version: 1.0.0
+contract: contracts/example-hello.v1.yaml
+package: packages/example-hello
+tags: [example, template, greeting, locale]
+used_by: []          # the template itself ships no product dependents
+owner: architecture-guild
+docs: packages/example-hello/README.md

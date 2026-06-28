@@ -1,0 +1,36 @@
+# Gate G5 — Release (manual, operator-approved). See architecture doc 01 §6.
+# Deploys to production only after explicit approval, with migration safety + rollback.
+# Uses a GitHub Environment ("production") whose protection rule requires operator sign-off.
+name: gate-release
+on:
+  workflow_dispatch:
+    inputs:
+      app:
+        description: 'App to release (e.g. your-app)'
+        required: true
+      version:
+        description: 'Version / tag to deploy'
+        required: true
+
+jobs:
+  g5-release:
+    runs-on: ubuntu-latest
+    environment: production # protection rule = operator approval gate
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 11
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - name: Build
+        run: pnpm build
+      - name: Migration safety check (placeholder — wire to your migration tool)
+        run: echo "verify migrations are additive/backward-compatible before deploy"
+      - name: Deploy (placeholder — wire to host: Fly/Render/K8s)
+        run: echo "deploy ${{ inputs.app }}@${{ inputs.version }} to production"
+      - name: Smoke tests
+        run: echo "run post-deploy smoke tests; auto-rollback on failure (G6)"

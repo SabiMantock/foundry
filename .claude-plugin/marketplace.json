@@ -1,0 +1,17 @@
+{
+  "name": "foundry-marketplace",
+  "owner": {
+    "name": "Sabi"
+  },
+  "metadata": {
+    "description": "Local marketplace hosting the Foundry — a product-agnostic AI-agent software production ecosystem."
+  },
+  "plugins": [
+    {
+      "name": "foundry",
+      "source": "./",
+      "description": "The Foundry: specialized agents (guilds) assemble products from reusable modules using reference designs and quality gates. Operator-chosen stack + design system, web-verified dependencies, cross-session memory, and spec-driven units. Install once; build any number of products.",
+      "version": "0.3.3"
+    }
+  ]
+}

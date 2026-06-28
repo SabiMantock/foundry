@@ -1,0 +1,33 @@
+{
+  "//": "Starter design tokens (semantic, theme-aware). Seeded by /design into a product's design-system module. Fill brand values; keep names SEMANTIC (color.bg.surface, not gray-100) so themes and rebrands are swaps, not rewrites. W3C-design-tokens-ish shape.",
+  "$schema": "https://design-tokens.org (informal)",
+  "color": {
+    "brand": { "primary": { "value": "#3B5BDB" }, "accent": { "value": "#15AABF" } },
+    "semantic": {
+      "bg":      { "canvas": { "light": "#FFFFFF", "dark": "#0B0E14" },
+                   "surface": { "light": "#F5F6F8", "dark": "#151A23" } },
+      "text":    { "primary": { "light": "#11151C", "dark": "#E6E9EF" },
+                   "muted":   { "light": "#5B6472", "dark": "#9AA4B2" } },
+      "border":  { "default": { "light": "#E2E5EA", "dark": "#222A36" } },
+      "status":  { "success": "#2F9E44", "warning": "#E8A317", "danger": "#E03131", "info": "#1C7ED6" }
+    }
+  },
+  "typography": {
+    "fontFamily": { "sans": "Inter, system-ui, sans-serif", "mono": "JetBrains Mono, monospace" },
+    "scale": {
+      "xs": "0.75rem", "sm": "0.875rem", "base": "1rem", "lg": "1.125rem",
+      "xl": "1.25rem", "2xl": "1.5rem", "3xl": "1.875rem", "4xl": "2.25rem"
+    },
+    "weight": { "regular": 400, "medium": 500, "semibold": 600, "bold": 700 },
+    "lineHeight": { "tight": 1.2, "normal": 1.5, "relaxed": 1.7 }
+  },
+  "space": { "0": "0", "1": "0.25rem", "2": "0.5rem", "3": "0.75rem", "4": "1rem",
+             "6": "1.5rem", "8": "2rem", "12": "3rem", "16": "4rem" },
+  "radius": { "sm": "0.25rem", "md": "0.5rem", "lg": "0.75rem", "full": "9999px" },
+  "shadow": { "sm": "0 1px 2px rgba(0,0,0,.06)", "md": "0 4px 12px rgba(0,0,0,.10)", "lg": "0 12px 32px rgba(0,0,0,.16)" },
+  "breakpoint": { "sm": "640px", "md": "768px", "lg": "1024px", "xl": "1280px" },
+  "motion": { "duration": { "fast": "120ms", "base": "200ms", "slow": "320ms" },
+              "easing": { "standard": "cubic-bezier(.2,0,0,1)" },
+              "reducedMotion": "respect prefers-reduced-motion" },
+  "a11y": { "target": "WCAG 2.1 AA", "minContrastText": 4.5, "minTouchTargetPx": 44 }
+}

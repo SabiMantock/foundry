@@ -1,0 +1,23 @@
+{
+  "name": "foundry",
+  "version": "0.3.3",
+  "description": "The Foundry — a product-agnostic AI-agent software production ecosystem. Specialized agents (guilds) assemble products from reusable modules using reference designs and quality gates. Operator-chosen stack and design system, web-verified latest-stable dependencies, cross-session memory, spec-driven units, and a per-product context pack. Install once; build any number of products.",
+  "author": {
+    "name": "Sabi"
+  },
+  "keywords": [
+    "agents",
+    "software-factory",
+    "orchestration",
+    "quality-gates",
+    "module-registry",
+    "design-system",
+    "spec-driven",
+    "context-engineering"
+  ],
+  "components": {
+    "agents": "./agents",
+    "skills": "./skills",
+    "commands": "./commands"
+  }
+}

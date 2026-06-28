@@ -1,0 +1,39 @@
+# Gate G3 — Security (runs on every PR). See architecture doc 01 §6 and standards 06 §2.
+# Dependency (SCA), secret scanning, and SAST. Findings above threshold block + escalate.
+name: gate-security
+on:
+  pull_request:
+    branches: [main]
+  schedule:
+    - cron: '0 6 * * 1' # weekly re-scan of main
+
+jobs:
+  g3-security:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      security-events: write
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 11
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - name: Dependency audit (SCA) — fail on high/critical
+        run: pnpm audit --audit-level high
+      - name: Secret scan (gitleaks)
+        uses: gitleaks/gitleaks-action@v2
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: SAST (CodeQL init)
+        uses: github/codeql-action/init@v3
+        with:
+          languages: javascript-typescript
+      - name: SAST (CodeQL analyze)
+        uses: github/codeql-action/analyze@v3

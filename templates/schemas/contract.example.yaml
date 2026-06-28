@@ -1,0 +1,23 @@
+# Contract for @foundry/example-hello — the canonical shape every module follows.
+module: example-hello
+version: 1.0.0
+stability: stable
+category: foundation/example
+summary: A trivial, deterministic greeting module used to prove the factory's gates.
+
+provides:
+  - signature: "greet(options?: GreetOptions) -> string"
+    description: Returns a localized greeting. Pure; no I/O.
+  - export: CONTRACT_VERSION
+    description: The contract version string, kept in lockstep with this file.
+
+types:
+  GreetOptions:
+    name: "string (optional, defaults to 'world')"
+    locale: "'en' | 'es' (optional, defaults to 'en')"
+
+depends_on: []        # foundation module — no internal dependencies
+events_emitted: []
+
+# Consumers depend on this contract, never on src/ internals.
+# A breaking change here = a v2 contract + a reviewed, deliberate act (doc 04 §3).

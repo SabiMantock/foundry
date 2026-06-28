@@ -1,0 +1,27 @@
+{
+  "name": "@foundry/example-hello",
+  "version": "1.0.0",
+  "description": "Canonical example module — the template every Registry module follows.",
+  "type": "module",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    }
+  },
+  "files": ["dist"],
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "typecheck": "tsc -p tsconfig.json --noEmit",
+    "lint": "eslint src --max-warnings 0",
+    "test": "vitest run --coverage",
+    "test:contract": "vitest run src/contract.test.ts"
+  },
+  "foundry": {
+    "tier": "stable",
+    "contract": "contracts/example-hello.v1.yaml",
+    "category": "foundation/example"
+  }
+}

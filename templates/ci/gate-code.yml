@@ -1,0 +1,30 @@
+# Gate G2 — Code (runs on every PR). See architecture doc 01 §6.
+# Blocks merge until: format, lint (zero warnings), types, and unit tests pass.
+name: gate-code
+on:
+  pull_request:
+    branches: [main]
+  push:
+    branches: [main]
+
+jobs:
+  g2-code:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 11
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - name: Format check
+        run: pnpm format:check
+      - name: Lint (zero warnings, contract-only imports enforced)
+        run: pnpm lint
+      - name: Type check
+        run: pnpm typecheck
+      - name: Unit tests + coverage
+        run: pnpm test

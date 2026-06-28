@@ -1,0 +1,30 @@
+# Gate G4 — Integration (runs before merge to main). See architecture doc 01 §6.
+# Contract tests (consumer<->provider agreement) + e2e + a performance budget check.
+name: gate-integration
+on:
+  pull_request:
+    branches: [main]
+
+jobs:
+  g4-integration:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 11
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - name: Build all packages
+        run: pnpm build
+      - name: Contract tests (G4 — modules still agree with their contracts)
+        run: pnpm test:contract
+      - name: Integration / e2e
+        run: pnpm gate:integration
+      # Performance budget (doc 06 §6): keep payloads small for low-bandwidth markets.
+      # Wire a real budget tool (e.g. size-limit / lighthouse-ci) as apps land.
+      - name: Performance budget (placeholder — enforce once apps exist)
+        run: echo "perf budget check: add size-limit/lighthouse-ci when apps/ has a build"

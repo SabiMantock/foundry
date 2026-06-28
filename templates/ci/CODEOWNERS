@@ -1,0 +1,19 @@
+# Maps areas of the repo to guilds (doc 01 §1). Used to route PR review at gate G2.
+# Replace handles with real reviewers/teams when you onboard humans alongside agents.
+
+# Factory machinery — operator owns the constitution and standards.
+/.claude/                 @operator
+/.github/                 @operator @platform-guild
+/tsconfig.base.json       @operator @architecture-guild
+/.eslintrc.cjs            @operator @architecture-guild
+
+# Contracts & registry — guarded by the architecture guild + librarian.
+/contracts/               @architecture-guild
+/registry/                @architecture-guild
+
+# Modules and apps — owned by the build guild by default.
+/packages/                @build-guild
+/apps/                    @build-guild
+
+# Docs / decisions — product + architecture guilds.
+/docs/                    @product-guild @architecture-guild
