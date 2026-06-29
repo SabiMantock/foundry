@@ -75,23 +75,26 @@ portable and product-free; **templates/** is the factory's reference-design libr
 This repo ships its own marketplace manifest (`.claude-plugin/marketplace.json` + `plugin.json`
 at the root), so it's installable as a plugin.
 
-### In the Claude app (Cowork) — recommended
-The app installs plugins from a **GitHub marketplace**, so push this repo to GitHub first, then:
+### In Claude Code (CLI) — recommended
+Launch Claude, then use the interactive plugin manager:
 
-1. Open the Claude desktop app.
+1. Open Claude Code.
 2. Run **`/plugin`**.
-3. Choose **Add marketplace** and enter your repo — `your-username/foundry` (or the full
-   `https://github.com/your-username/foundry` URL).
-4. **Browse plugins → foundry → Install.**
+3. Choose **Add marketplace** → enter `SabiMantock/foundry` (or the full
+   `https://github.com/SabiMantock/foundry` URL). A local path also works here.
+4. **Browse / Install → foundry.**
 
-That loads the agents, skills, and `/foundry:` commands into the app. To update later: `git push`
-your changes (bump the version in `plugin.json` + `marketplace.json`), then `/plugin` → update.
-
-### In Claude Code (CLI) — local folder works too
+To update later: `git push` your changes (bump the version in `plugin.json` + `marketplace.json`),
+then `/plugin` → update. Non-interactive equivalent:
 ```bash
-claude plugin marketplace add /Users/sabimantock/Work/co-work/system-setup/foundry
+claude plugin marketplace add SabiMantock/foundry   # or a local path
 claude plugin install foundry@foundry-marketplace
 ```
+
+### In the Claude app (Cowork)
+The app installs from a **GitHub marketplace** (push this repo first): **Cowork tab → Customize
+(sidebar) → Plugins → Add marketplace** → `SabiMantock/foundry` → **Browse plugins → foundry →
+Install.**
 
 ### Manual (any repo) — copy into `.claude/`
 ```bash
