@@ -80,20 +80,20 @@ Launch Claude, then use the interactive plugin manager:
 
 1. Open Claude Code.
 2. Run **`/plugin`**.
-3. Choose **Add marketplace** → enter `SabiMantock/foundry` (or the full
-   `https://github.com/SabiMantock/foundry` URL). A local path also works here.
+3. Choose **Add marketplace** → enter `<owner>/foundry` (or the full
+   `https://github.com/<owner>/foundry` URL). A local path also works here.
 4. **Browse / Install → foundry.**
 
 To update later: `git push` your changes (bump the version in `plugin.json` + `marketplace.json`),
-then `/plugin` → update. Non-interactive equivalent:
-```bash
-claude plugin marketplace add SabiMantock/foundry   # or a local path
-claude plugin install foundry@foundry-marketplace
+then `/plugin` → update. Direct slash commands (run inside Claude):
+```
+/plugin marketplace add <owner>/foundry     # GitHub repo — or /path/to/foundry for a local folder
+/plugin install foundry@foundry-marketplace
 ```
 
 ### In the Claude app (Cowork)
 The app installs from a **GitHub marketplace** (push this repo first): **Cowork tab → Customize
-(sidebar) → Plugins → Add marketplace** → `SabiMantock/foundry` → **Browse plugins → foundry →
+(sidebar) → Plugins → Add marketplace** → `<owner>/foundry` → **Browse plugins → foundry →
 Install.**
 
 ### Manual (any repo) — copy into `.claude/`
