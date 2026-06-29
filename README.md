@@ -72,20 +72,28 @@ portable and product-free; **templates/** is the factory's reference-design libr
 
 ## Install the factory
 
-As a Claude Code plugin (recommended — keeps it separate from any product). `plugin install`
-resolves names from a *registered marketplace*, not a raw path — this folder ships its own
-marketplace manifest, so register it first, then install by name:
+This repo ships its own marketplace manifest (`.claude-plugin/marketplace.json` + `plugin.json`
+at the root), so it's installable as a plugin.
 
+### In the Claude app (Cowork) — recommended
+The app installs plugins from a **GitHub marketplace**, so push this repo to GitHub first, then:
+
+1. Open the Claude desktop app.
+2. Run **`/plugin`**.
+3. Choose **Add marketplace** and enter your repo — `your-username/foundry` (or the full
+   `https://github.com/your-username/foundry` URL).
+4. **Browse plugins → foundry → Install.**
+
+That loads the agents, skills, and `/foundry:` commands into the app. To update later: `git push`
+your changes (bump the version in `plugin.json` + `marketplace.json`), then `/plugin` → update.
+
+### In Claude Code (CLI) — local folder works too
 ```bash
-# 1. register this folder as a marketplace (it hosts the foundry plugin)
 claude plugin marketplace add /Users/sabimantock/Work/co-work/system-setup/foundry
-
-# 2. install the plugin by name@marketplace
 claude plugin install foundry@foundry-marketplace
 ```
 
-Or activate manually in a repo by copying into `.claude/`:
-
+### Manual (any repo) — copy into `.claude/`
 ```bash
 mkdir -p .claude
 cp CLAUDE.md .claude/CLAUDE.md
