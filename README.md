@@ -28,7 +28,8 @@ foundry/
 │   ├── platform-lead.md
 │   ├── ops-analyst.md
 │   ├── registry-librarian.md    #   cross-cutting catalog guardian
-│   └── workers/                 #   T3 — disposable, parallel task workers
+│   └── workers/                 #   T3 — module-builder, backend/frontend/mobile/data,
+│                                 #   test, reviewer, security, docs, harvester (disposable, parallel)
 ├── skills/                      # SOPs the agents run
 │   ├── reuse-search/            #   find a module before building
 │   ├── harvest-module/          #   promote proven code into the catalog
@@ -40,6 +41,7 @@ foundry/
 │   ├── recover/                 #   circuit breaker: diagnose the failure mode
 │   ├── imprint/                 #   capture components into the UI registry
 │   ├── gate-code/               #   G2 checklist
+│   ├── gate-architecture/       #   fitness function: contract/registry drift, layering, cycles
 │   ├── gate-security/           #   G3 checklist
 │   ├── gate-design/             #   WCAG 2.1 AA + design-system/token adherence
 │   └── gate-release/            #   G5 checklist
@@ -49,7 +51,9 @@ foundry/
 │   ├── remember.md  recover.md  imprint.md
 └── templates/                   # reference designs the factory STAMPS INTO a product
     ├── workspace/               #   pnpm/turbo/tsconfig/eslint(flat)/prettier root
+    │   └── scripts/             #   check-architecture.mjs (the gate-architecture script)
     ├── ci/                      #   the gate-*.yml workflows + CODEOWNERS
+    ├── reference-designs/       #   C4-style blueprints (CRUD/dashboard/mobile/event) + layering rules
     ├── module/                  #   the canonical module skeleton (neutral)
     ├── schemas/                 #   contract + registry-index example shapes
     ├── stack-profiles.md        #   selectable stacks (operator chooses per product)
@@ -125,9 +129,10 @@ rather than absorbing the work. That's the whole thesis.
 
 ## Status
 
-- ✅ Factory built: constitution, 16 agents, 13 skills, 13 commands (plugin v0.3.3).
-- ✅ Reference-design templates: workspace, CI gates, module skeleton, schemas, stack/design
-  profiles, context pack, build-plan + unit-spec, commission runbook, ADR/spec.
+- ✅ Factory built: constitution, 19 agents, 14 skills, 13 commands (plugin v0.4.0).
+- ✅ Reference-design templates: workspace (+ `gate-architecture` fitness-function script), CI
+  gates, C4-style reference-design blueprints, module skeleton, schemas, stack/design profiles,
+  context pack, build-plan + unit-spec, commission runbook, ADR/spec.
 - ⏳ Next: install/update the plugin, `/foundry:new-product` your first product, then commission it.
 
 The factory is deliberately empty of products. Point it at whatever you want to build.

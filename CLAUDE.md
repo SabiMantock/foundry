@@ -57,6 +57,15 @@ is the asset; products are what it produces.
     assumption) before trying more fixes. Don't spiral.
 17. **Invariants are law.** Honor the Invariants sections in the spec and context docs — they are
     hard rules, not suggestions. Promote any recurring mistake into a new invariant.
+18. **Evidence over assertion.** Never report a check as passing unless you just ran it in this
+    session. `checks: pass` in the output envelope must be backed by the actual command output,
+    pasted into `evidence` — a self-report with no output is a claim, not proof. Reviewers and
+    gate owners re-run key checks independently rather than trusting the diff or the claim.
+    This is how the factory keeps shipping fast without shipping code that breaks.
+19. **The reference design is real, not aspirational.** Pick a blueprint from
+    `templates/reference-designs/` at G1 and build to its layering; `gate-architecture` checks
+    this mechanically on every PR (a fitness function, not a periodic audit). Deviations are
+    allowed but must be recorded in the ADR — undocumented drift fails the gate.
 
 ## 3. Tiers (who does what)
 - **T0 Operator (human):** commissions, standards, gate sign-off (G0/G1/G5), Registry curation.
@@ -80,6 +89,10 @@ A unit of work is done ONLY when all hold:
 - dependencies pinned to web-verified latest **stable** (no RC/beta/EOL) per §2.12;
 - for UI work: built from the `design-system` + tokens, and `gate-design` (WCAG 2.1 AA +
   token adherence) passes;
+- **every claimed-passing check has pasted evidence** (real command output), not just a status
+  word (§2.18); a claim without output does not satisfy the gate;
+- built to its reference-design blueprint's layering, or a recorded ADR deviation
+  (§2.19); `gate-architecture` is clean;
 - the output envelope (§5) is written.
 
 ## 5. The output envelope (write at task completion)
@@ -92,6 +105,8 @@ produced:
     kind: module | endpoint | screen | test | doc | contract | adr
     contract: <contracts/...yaml if applicable>
 checks: { tests: pass|fail, lint: pass|fail, types: pass|fail, contract: pass|fail|n/a }
+evidence: <pasted, just-run command output proving each claimed check actually ran — required,
+  not optional (§2.18)>
 handoff_to: <next-agent>
 notes: <what you reused, what was net-new, harvest candidates>
 escalation: null | { reason, question, blocking: true|false }
@@ -102,7 +117,10 @@ G0 brief (operator) · G1 architecture (operator) · G2 code (CI) · G3 security
 G4 integration/contract (CI) · G5 release (operator) · G6 post-release (ops).
 Skills `gate-code`, `gate-security`, `gate-release` encode the checklists; the CI
 workflow templates live in `templates/ci/`. For UI work, `gate-design` (WCAG 2.1 AA +
-design-system/token adherence) runs alongside G2.
+design-system/token adherence) runs alongside G2. `gate-architecture` — a continuous fitness
+function checking contract/registry drift, layering, and dependency cycles against the chosen
+`templates/reference-designs/` blueprint — also runs alongside G2, on every PR, not as a
+periodic audit.
 
 ## 7. Tech stack (operator-chosen, per product)
 There is **no mandated stack**. The operator selects one per product via `/stack`, recorded as

@@ -13,7 +13,9 @@
     "typecheck": "turbo run typecheck",
     "test": "turbo run test",
     "test:contract": "turbo run test:contract",
+    "architecture:check": "node scripts/check-architecture.mjs",
     "gate:code": "pnpm lint && pnpm typecheck && pnpm test",
+    "gate:architecture": "pnpm architecture:check",
     "gate:integration": "turbo run test:contract && turbo run test:e2e",
     "format": "prettier --write \"**/*.{ts,tsx,js,json,md,yml,yaml}\"",
     "format:check": "prettier --check \"**/*.{ts,tsx,js,json,md,yml,yaml}\""
@@ -22,6 +24,7 @@
     "@eslint/js": "^10.6.0",
     "eslint": "^10.6.0",
     "eslint-plugin-boundaries": "^5.0.1",
+    "js-yaml": "^5.2.0",
     "prettier": "^3.9.1",
     "turbo": "^2.10.0",
     "typescript": "^6.0.3",

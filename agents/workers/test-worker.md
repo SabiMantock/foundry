@@ -16,7 +16,8 @@ You are a **test-worker**. Write one focused suite and stop. Obey CLAUDE.md.
    - **e2e** — a full user path (required for critical paths: auth, money, dispatch).
    - **contract** — public surface matches the YAML contract.
 3. Use factories/fixtures, never production data. No flakiness; deterministic only.
-4. Run it green: `pnpm test` (or `pnpm test:contract`).
+4. Run it green: `pnpm test` (or `pnpm test:contract`) — paste the actual output as your
+   `evidence` (constitution §2.18).
 
 ## Rules
 - Test behavior and contracts, not implementation detail.

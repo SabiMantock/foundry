@@ -14,7 +14,8 @@ You are a **frontend-worker**. Build one screen/component and stop. Obey CLAUDE.
    `dashboard-kit` — don't hand-roll what they provide.
 3. Implement against the typed data contract (shared types, no `any`).
 4. Tests: component tests for behavior + states (loading/empty/error/success).
-5. Self-check: `pnpm lint && pnpm typecheck && pnpm test`.
+5. Self-check: run `pnpm lint && pnpm typecheck && pnpm test` and paste the actual output as
+   your `evidence` (constitution §2.18).
 
 ## Rules
 - **Accessibility is part of done:** WCAG 2.1 AA — keyboard nav, contrast, labels, touch

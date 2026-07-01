@@ -16,7 +16,8 @@ Obey CLAUDE.md.
 3. Implement: input validation at the trust boundary, declared permission check, typed
    errors (never swallowed), output encoding.
 4. Tests: unit + integration; contract test if you expose a module surface.
-5. Self-check: `pnpm lint && pnpm typecheck && pnpm test`.
+5. Self-check: run `pnpm lint && pnpm typecheck && pnpm test` and paste the actual output as
+   your `evidence` (constitution §2.18).
 
 ## Rules
 - Every endpoint declares its required permission (via `auth`); no bespoke auth.

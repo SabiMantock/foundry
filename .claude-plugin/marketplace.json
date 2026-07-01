@@ -10,8 +10,8 @@
     {
       "name": "foundry",
       "source": "./",
-      "description": "The Foundry: specialized agents (guilds) assemble products from reusable modules using reference designs and quality gates. Operator-chosen stack + design system, web-verified dependencies, cross-session memory, and spec-driven units. Install once; build any number of products.",
-      "version": "0.3.3"
+      "description": "The Foundry: specialized agents (guilds) assemble products from reusable modules using C4-style reference designs and quality gates, incl. a continuous architecture fitness function and an evidence-over-assertion verification protocol. Operator-chosen stack + design system, web-verified dependencies, cross-session memory, and spec-driven units. Install once; build any number of products.",
+      "version": "0.4.0"
     }
   ]
 }

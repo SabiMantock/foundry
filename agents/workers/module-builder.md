@@ -19,7 +19,9 @@ Obey CLAUDE.md.
    match the contract exactly (the contract test will check this).
 4. **Tests:** unit tests for behavior + a `contract.test.ts` asserting the public surface.
    Meet the coverage floor.
-5. **Self-check (DoD):** `pnpm lint && pnpm typecheck && pnpm test && pnpm test:contract`.
+5. **Self-check (DoD):** run `pnpm lint && pnpm typecheck && pnpm test && pnpm test:contract`
+   and paste the actual output as your `evidence` — a claimed pass with no output is not a
+   check (constitution §2.18).
 
 ## Rules
 - Public surface only through `src/index.ts`; never expose internals.

@@ -31,6 +31,15 @@ product, because versions move and the operator may pick a different stack.
 | React Native | 0.86.0 (0.85 = New Architecture default) | |
 | Expo SDK     | 56 (bundles RN 0.85, React 19.2) | |
 
+## Design-system profile additions (Tailwind + shadcn/ui, `design-profiles.md` Profile 1)
+
+| Tool               | Stable (2026-06-28) | Pin      | Notes |
+| ------------------ | -------------------- | -------- | ----- |
+| Tailwind CSS        | 4.3.1                | `^4.3.1` | First-party scrollbar styling, logical-property utilities. |
+| shadcn CLI          | v4                   | `latest` (CLI, not a runtime dep) | `--dry-run`/`--diff` flags added; supports Next.js/Vite/TanStack Start/React Router/Astro/Laravel init templates. |
+| radix-ui (unified)  | latest per shadcn CLI init | — | shadcn/ui now ships against the unified `radix-ui` package, not per-primitive packages. |
+| NativeWind          | latest compatible with the pinned RN/Expo SDK | — | Mobile counterpart for token parity (Profile 1 mobile). |
+
 ## Python profile additions (compute/ML modules behind a service contract)
 
 | Tool    | Stable (2026-06-28) | Notes |
@@ -59,3 +68,5 @@ product, because versions move and the operator may pick a different stack.
 - Expo / React Native — https://expo.dev/changelog/sdk-56 · https://reactnative.dev/versions
 - PostgreSQL — https://www.postgresql.org/about/news/postgresql-184-1710-1614-1518-and-1423-released-3297/
 - FastAPI — https://fastapi.tiangolo.com/release-notes/
+- Tailwind CSS — https://eosl.date/eol/product/tailwind-css/ · https://github.com/tailwindlabs/tailwindcss/releases
+- shadcn/ui — https://ui.shadcn.com/docs/changelog/2026-03-cli-v4

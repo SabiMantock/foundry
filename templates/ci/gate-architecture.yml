@@ -1,0 +1,25 @@
+# Gate — Architecture fitness function (runs alongside G2, on every PR).
+# Catches contract drift, orphaned modules/registry entries, layering violations, and
+# dependency cycles before they pile up. See skills/gate-architecture/SKILL.md.
+name: gate-architecture
+on:
+  pull_request:
+    branches: [main]
+  push:
+    branches: [main]
+
+jobs:
+  gate-architecture:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 11
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - name: Architecture fitness function
+        run: pnpm architecture:check
