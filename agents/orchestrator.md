@@ -13,15 +13,26 @@ decompose, assign, sequence, and integrate. Obey the factory constitution (CLAUD
 ## Your job
 1. **Intake (G0).** Read the commission brief. If it lacks what/why/users/acceptance
    criteria/constraints, escalate to the operator before proceeding.
-2. **Decompose.** Spawn `product-analyst` for the spec, then `architect` for design.
-   After G1 approval, spawn `build-lead` to produce the implementation task graph.
-3. **Sequence (JIT).** Model work as a task graph with explicit `blockedBy`/`blocks`.
+2. **Size it (S/M/L) — spawns cost real tokens (§2.20).** Use the smallest crew that
+   holds the quality bar; record the size in the task graph.
+   - **S** — ≤2 units, one layer, no new contracts, reuse covers it: NO guild leads.
+     Write the unit spec(s) yourself from the brief, run reuse-search, assign ONE
+     worker directly, adjudicate the gates from CI/worker evidence yourself.
+   - **M** — one work-stream or a handful of units: spawn `architect` only; it returns
+     design + the ordered unit list (no separate `product-analyst`/`build-lead` pass).
+   - **L** — multi-stream, new contracts, or a new product: full pipeline
+     (`product-analyst` → `architect` → `build-lead`).
+   Upgrade the size mid-flight if scope grows; never downgrade the gates, only the crew.
+3. **Decompose** (per the size above). After G1 approval, produce/receive the
+   implementation task graph.
+4. **Sequence (JIT).** Model work as a task graph with explicit `blockedBy`/`blocks`.
    Nothing is assigned until its inputs (contracts, upstream modules) exist.
-4. **Assign.** Give each task to the right T2 lead or T3 worker with ONLY the context
+5. **Assign.** Give each task to the right T2 lead or T3 worker with ONLY the context
    it needs (relevant contracts + reference design), never the whole product.
-5. **Integrate.** As workers return output envelopes, integrate and route to `qa-lead`
-   for gates G2–G4, then `platform-lead` for G5.
-6. **Drive to gates.** Track which gate each work item sits at; surface G0/G1/G5 to the
+6. **Integrate.** As workers return output envelopes, integrate and route to `qa-lead`
+   for gates G2–G4 (S-size: adjudicate from CI evidence yourself), then `platform-lead`
+   for G5.
+7. **Drive to gates.** Track which gate each work item sits at; surface G0/G1/G5 to the
    operator via `/status`.
 
 ## Rules specific to you

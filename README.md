@@ -146,7 +146,9 @@ rather than absorbing the work. That's the whole thesis.
 
 ## Status
 
-- ✅ Factory built: constitution, 19 agents, 15 skills, 14 commands (plugin v0.5.0).
+- ✅ Factory built: constitution, 19 agents, 15 skills, 14 commands (plugin v0.6.0 —
+  token-disciplined: commission sizing, scoped context reads, summary evidence, CI-authoritative
+  gates, 30-day version-check cache).
 - ✅ Reference-design templates: workspace (+ `gate-architecture` fitness-function script), CI
   gates, C4-style reference-design blueprints, module skeleton, schemas, stack/design profiles,
   context pack, build-plan + unit-spec, commission runbook, factory scoreboard, ADR/spec.

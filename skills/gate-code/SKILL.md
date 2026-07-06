@@ -8,6 +8,8 @@ description: >
 # Skill: gate-code (G2)
 
 Mechanical + judgment checks that gate every PR. Mirrors `.github/workflows/gate-code.yml`.
+CI is authoritative for the full matrix — in-session runs are scoped to changed packages
+(`turbo --filter`), and a gate CI already ran is adjudicated from its results, not re-run.
 
 ## Automated (must all pass)
 - `pnpm format:check` — formatting clean.

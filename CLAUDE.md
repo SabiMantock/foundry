@@ -45,8 +45,8 @@ is the asset; products are what it produces.
     chosen via `/design` and recorded in `docs/decisions/0002-design-system.md`. All UI is
     assembled from the `design-system` module + its tokens — never ad-hoc styles or hard-coded
     values. **WCAG 2.1 AA accessibility is mandatory**, enforced by `gate-design` alongside G2.
-14. **Read context first; never assume.** Before building, read the product's context pack
-    (`docs/context/*`) + relevant spec/ADR. For library APIs, follow the **order of authority**:
+14. **Read context first; never assume.** Before building, read the context files your task
+    actually touches (AGENTS.md maps which — don't load the whole pack) + relevant spec/ADR. For library APIs, follow the **order of authority**:
     live MCP docs → installed skills (`check-latest-versions`) → product context docs → training
     knowledge (last resort, may be stale). Net-new UI: read `ui-registry.md` and match before inventing.
 15. **Persist context across sessions.** End a working session with `/remember save`; begin a
@@ -58,14 +58,20 @@ is the asset; products are what it produces.
 17. **Invariants are law.** Honor the Invariants sections in the spec and context docs — they are
     hard rules, not suggestions. Promote any recurring mistake into a new invariant.
 18. **Evidence over assertion.** Never report a check as passing unless you just ran it in this
-    session. `checks: pass` in the output envelope must be backed by the actual command output,
-    pasted into `evidence` — a self-report with no output is a claim, not proof. Reviewers and
+    session. `checks: pass` in the output envelope must be backed by real command output in
+    `evidence` — **the summary/failing lines + exit status, not the full transcript** (paste
+    full output only for failures). A self-report with no output is a claim, not proof. Reviewers and
     gate owners re-run key checks independently rather than trusting the diff or the claim.
     This is how the factory keeps shipping fast without shipping code that breaks.
 19. **The reference design is real, not aspirational.** Pick a blueprint from
     `templates/reference-designs/` at G1 and build to its layering; `gate-architecture` checks
     this mechanically on every PR (a fitness function, not a periodic audit). Deviations are
     allowed but must be recorded in the ADR — undocumented drift fails the gate.
+20. **Right-size the workforce; spend tokens like money.** Every agent spawn is a fresh context
+    that costs real tokens. The orchestrator sizes each commission (S/M/L) and uses the smallest
+    crew that holds the quality bar — small work gets ONE worker, not the full pipeline. Load
+    only the context files your task actually touches (AGENTS.md maps them). Never downgrade
+    the gates to save tokens — downgrade the crew.
 
 ## 3. Tiers (who does what)
 - **T0 Operator (human):** commissions, standards, gate sign-off (G0/G1/G5), Registry curation.
@@ -105,8 +111,8 @@ produced:
     kind: module | endpoint | screen | test | doc | contract | adr
     contract: <contracts/...yaml if applicable>
 checks: { tests: pass|fail, lint: pass|fail, types: pass|fail, contract: pass|fail|n/a }
-evidence: <pasted, just-run command output proving each claimed check actually ran — required,
-  not optional (§2.18)>
+evidence: <just-run command + exit status + summary/failing lines per claimed check — required
+  (§2.18); full output only on failure>
 handoff_to: <next-agent>
 notes: <what you reused, what was net-new, harvest candidates>
 escalation: null | { reason, question, blocking: true|false }

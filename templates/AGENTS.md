@@ -4,17 +4,26 @@ The first file any coding agent reads in this product, every session. (Open-stan
 `AGENTS.md`. Claude Code also reads `CLAUDE.md` — keep one as the source and symlink/copy the other.
 The factory constitution is installed at `.claude/CLAUDE.md`; this file points to the PRODUCT context.)
 
-## Read before implementing or making any decision
-Read these in order before touching code:
+## Read what your task touches — not the whole pack (constitution §2.3, §2.20)
+**Everyone, always:**
 
 1. `docs/specs/<active-unit>.md` — the unit spec you're implementing (if any)
-2. `docs/context/project-overview` (the product spec) — product definition, goals, scope
-3. `docs/decisions/` — ADRs: stack (0001), design system (0002), architecture choices + invariants
-4. `docs/context/ui-rules.md` + `docs/context/ui-registry.md` — visual language + component patterns
-5. `docs/context/library-docs.md` — per-library usage + the API order-of-authority
-6. `docs/context/ai-workflow-rules.md` — scoping, protected files, verification discipline
-7. `docs/context/progress-tracker.md` — current phase, done, in progress, next
-8. `docs/memory/session-state.md` — if continuing a prior session (`/remember restore`)
+2. `docs/context/ai-workflow-rules.md` — scoping, protected files, verification discipline
+3. The **Invariants** sections of the spec/ADRs your task falls under
+
+**Then only what applies to YOUR task:**
+
+- Building UI → `docs/context/ui-rules.md` + `docs/context/ui-registry.md`
+- Touching a library's API or adding a dependency → `docs/context/library-docs.md` + stack ADR (0001)
+- Making/receiving a design decision → the relevant ADRs in `docs/decisions/`
+- UI styling questions → design ADR (0002) + tokens
+
+**Session boundaries only (not per task):**
+
+- Start of a continuing session → `docs/memory/session-state.md` (`/remember restore`) +
+  `docs/context/progress-tracker.md`
+- Guild leads & orchestrator planning a commission → `docs/context/project-overview` (the
+  product spec) and the full pack as needed — workers get their slice from the task assignment
 
 ## Standing instructions
 - Update `docs/context/progress-tracker.md` after each meaningful change.

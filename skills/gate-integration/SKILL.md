@@ -36,5 +36,6 @@ with their contracts, flows work end-to-end, payloads stay within budget. Mirror
 - A contract-test failure caused by an intentional breaking change → escalate to `architect`
   (major bump + consumer migration plan); never "fix" it by loosening the test.
 - Second failure on the same task → escalate to `orchestrator` (design smell).
-- All green → `handoff_to: platform-lead` for G5. Paste the command output as evidence
-  (§2.18) — a claim without output does not satisfy the gate.
+- All green → `handoff_to: platform-lead` for G5. Evidence = command + exit status +
+  summary/failing lines (§2.18) — a claim without output does not satisfy the gate. When CI
+  ran this gate, adjudicate from the CI results instead of re-running the suite in-session.

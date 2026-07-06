@@ -16,7 +16,15 @@ verify against the live web. This skill is mandatory whenever versions are chose
 - Adding a new dependency in any build task (`module-builder`, `backend-worker`, etc.).
 - Gate G3 (`security-worker`): confirm nothing pinned is EOL or has a known advisory.
 
-## Procedure (per package)
+## Freshness window (check BEFORE any web search)
+Web-verifying every package on every task burns tokens for answers you already have. Before
+searching, check the most recent verification: the product's tech-stack ADR, an earlier check
+in this commission, or `templates/stack-baseline.md`. If a package was verified **≤30 days
+ago** and carries no advisory flag, REUSE that result. Web-verify only packages that are
+missing, stale (>30 days), or security-flagged. One verification per commission — never per
+file or per task.
+
+## Procedure (per package needing verification)
 1. **Find the latest stable.** Web-search the official source / registry (npm, PyPI, the
    project's releases page, or endoflife.date). Prefer authoritative sources.
 2. **Reject non-stable.** Ignore alpha/beta/RC unless the operator explicitly opted in. A
