@@ -27,6 +27,14 @@ Return the decision so it's recorded in the task output (feeds the outer loop).
 - Flag catalog rot: stale docs, contract drift (caught by contract tests), god-modules,
   hidden coupling, localization leakage.
 
+## Cross-product reuse (the compounding asset)
+Each product repo carries its own `registry/index/` + `contracts/`, but the catalog is meant
+to compound ACROSS products. When a module reaches `stable`, propose extraction to the
+operator's shared registry (a dedicated modules repo or published package scope) so the next
+product can consume it as a versioned dependency instead of a copy. On reuse-search misses,
+check the shared registry too before ruling BUILD-NEW. Copy-paste between product repos
+without a catalog entry is how the flywheel dies — flag it.
+
 ## Escalation
 Promotion/retirement and build-vs-reuse-for-an-expensive-module are operator decisions —
 surface them, don't decide them.

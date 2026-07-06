@@ -1,4 +1,4 @@
-# Gate G3 — Security (runs on every PR). See architecture doc 01 §6 and standards 06 §2.
+# Gate G3 — Security (runs on every PR). See the factory blueprint: docs/blueprint/01 §6 and 06 §2.
 # Dependency (SCA), secret scanning, and SAST. Findings above threshold block + escalate.
 name: gate-security
 on:

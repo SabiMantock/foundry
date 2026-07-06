@@ -22,7 +22,7 @@ greet({ name: 'Sabi', locale: 'es' }); // "Hola, Sabi!"
 ## What it demonstrates
 - **Contract-only imports** — consumers use the package entry, never `src/` internals.
 - **Contract test** — `contract.test.ts` ties code to the YAML contract (gate G4).
-- **Maturity + metadata** — `foundry.tier: stable` in `package.json` (doc 04 §4).
+- **Maturity + metadata** — `foundry.tier: stable` in `package.json` (factory blueprint doc 04 §4).
 
 ## Don't
 Ship product logic from here. It's the template, not a real capability. When you

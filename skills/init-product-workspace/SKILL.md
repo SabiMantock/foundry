@@ -18,17 +18,19 @@ produces the *product*.
 ## Steps
 1. **Create the repo root** at the target directory (never inside the factory).
 2. **Copy `templates/workspace/*`** to the root (package.json, pnpm-workspace.yaml,
-   turbo.json, tsconfig.base.json, .eslintrc.cjs, .prettierrc.json, .gitignore, .env.example).
-   Set the root `package.json` `name` to the product name.
+   turbo.json, tsconfig.base.json, eslint.config.mjs, .prettierrc.json, .gitignore,
+   .env.example, scripts/). Set the root `package.json` `name` to the product name.
 3. **Copy `templates/ci/*.yml`** into `.github/workflows/` and `templates/ci/CODEOWNERS`
    into `.github/`.
 4. **Create empty structure:** `packages/` (modules), `apps/` (the product app),
    `contracts/`, `registry/index/`, `docs/decisions/`, `docs/specs/`.
 5. **Seed one module** from `scaffold-module` so `pnpm gate:code` is green immediately
    (proves the gates work end-to-end before any real work).
-6. **Install the factory** into the product: copy the factory's `CLAUDE.md`, `agents/`,
-   `skills/`, `commands/` into the product's `.claude/` (or install the plugin), so the
-   workforce is available in that repo.
+6. **Install the constitution** — ALWAYS copy the factory's `CLAUDE.md` to the product's
+   `.claude/CLAUDE.md`. A plugin's own CLAUDE.md is NOT loaded as context, so even with the
+   plugin installed the constitution must be stamped into each product. If the plugin is NOT
+   installed, also copy `agents/`, `skills/`, `commands/` into `.claude/` so the workforce
+   works in that repo (commands then run un-namespaced, e.g. `/commission`).
 7. **Verify:** `pnpm install && pnpm gate:code && pnpm build && pnpm test:contract` are green.
 
 ## Output

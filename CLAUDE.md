@@ -115,7 +115,7 @@ escalation: null | { reason, question, blocking: true|false }
 ## 6. The gates (where work is checked)
 G0 brief (operator) · G1 architecture (operator) · G2 code (CI) · G3 security (CI) ·
 G4 integration/contract (CI) · G5 release (operator) · G6 post-release (ops).
-Skills `gate-code`, `gate-security`, `gate-release` encode the checklists; the CI
+Skills `gate-code`, `gate-security`, `gate-integration`, `gate-release` encode the checklists; the CI
 workflow templates live in `templates/ci/`. For UI work, `gate-design` (WCAG 2.1 AA +
 design-system/token adherence) runs alongside G2. `gate-architecture` — a continuous fitness
 function checking contract/registry drift, layering, and dependency cycles against the chosen
@@ -134,7 +134,8 @@ implementation tooling changes.
 ## 8. Operator commands
 Setup: `/new-product` `/stack` `/design`. Build: `/commission` `/status` `/gate` `/reuse`
 `/review`. Continuity: `/remember` (save·restore) `/imprint` `/recover`. Improve: `/harvest`
-`/postmortem`. These are your control surface; the workforce does the rest.
+`/postmortem` `/standards` (view/tighten the bar; track the scoreboard in
+`templates/factory-metrics.md`). These are your control surface; the workforce does the rest.
 
 ## 9. The product context pack
 Every product carries a living context pack so agents have complete system knowledge (seeded from

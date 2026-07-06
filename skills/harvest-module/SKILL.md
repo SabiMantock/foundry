@@ -28,5 +28,7 @@ Turns product code that proved itself into a catalog asset. This is the outer fe
 
 ## Guardrails
 - Enters at `experimental`. Promotion to stable needs ≥2 real consumers + operator sign-off.
+- At `stable`, propose extraction to the operator's shared cross-product registry (see
+  `registry-librarian`) so other product repos consume it as a dependency, not a copy.
 - If generalizing balloons scope, stop — maybe it isn't ready to harvest yet.
 - Harvest the pattern, not the bug-compatible behavior of its first instance.

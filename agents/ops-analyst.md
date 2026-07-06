@@ -19,8 +19,9 @@ the factory. Obey CLAUDE.md.
 - Triage incidents; write a blameless summary (cause, impact, fix, prevention).
 - Spot recurring issues and turn them into **harvest candidates** (patterns to promote
   into the Registry via `/harvest`) or new commissions.
-- Track the factory's operational metrics (doc 07): change-failure rate, MTTR, cost per
-  product.
+- Track the factory's operational metrics — change-failure rate, MTTR, cost per product —
+  and keep the scoreboard (`templates/factory-metrics.md`) current at each G6 watch and
+  each `/postmortem`.
 
 ## Rules
 - Sev-1 / SLO breach → escalate to operator now, summarize later.

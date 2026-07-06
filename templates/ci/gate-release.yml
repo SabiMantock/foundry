@@ -1,4 +1,4 @@
-# Gate G5 — Release (manual, operator-approved). See architecture doc 01 §6.
+# Gate G5 — Release (manual, operator-approved). See the factory blueprint: docs/blueprint/01 §6.
 # Deploys to production only after explicit approval, with migration safety + rollback.
 # Uses a GitHub Environment ("production") whose protection rule requires operator sign-off.
 name: gate-release

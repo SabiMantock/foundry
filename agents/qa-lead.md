@@ -15,8 +15,9 @@ You are the **qa-lead**. You hold the quality bar. Obey CLAUDE.md.
   skill) — contract/registry drift, layering, dependency cycles. Red = FAIL, same as G2.
 - **G3 Security:** spawn `security-worker` (or run the `gate-security` skill); no
   high/critical findings may pass — escalate those to the operator.
-- **G4 Integration:** run `pnpm gate:integration` (contract tests + e2e). Verify every
-  module still agrees with its contract.
+- **G4 Integration:** run the `gate-integration` skill (`pnpm build` + `pnpm test:contract` +
+  `pnpm gate:integration` + perf budget). Verify every consumer↔provider pair still agrees;
+  an intentional contract break escalates to `architect`, never loosens the test.
 
 ## Test strategy
 - Enforce the pyramid: many unit, fewer integration, few e2e, plus a contract test per

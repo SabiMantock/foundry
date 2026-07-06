@@ -10,14 +10,18 @@ The Foundry contains **no product of its own**. It is the machine; products are 
 produces. It ships as an installable Claude Code plugin, so the same factory can build any
 number of separate products, each in its own repo.
 
-> Design rationale lives in `../software-factory-blueprint/` (docs 00–07).
+> Design rationale ships with the repo in `docs/blueprint/` (docs 00–07). Doc 05 is the worked
+> example of a first product (Relay, logistics) — rationale only, not shipped machinery.
 
 ## What's in here
 
 ```
 foundry/
 ├── .claude-plugin/plugin.json   # plugin manifest (makes the factory installable)
-├── CLAUDE.md                    # the factory constitution (inherited by every agent)
+├── docs/blueprint/              # design rationale (docs 00–07): why the factory is built this way
+├── CLAUDE.md                    # the factory constitution — stamped into each product's
+│                                #   .claude/CLAUDE.md by /new-product (a plugin's own
+│                                #   CLAUDE.md is NOT auto-loaded; see "Install")
 ├── agents/                      # the workforce
 │   ├── orchestrator.md          #   T1 — decomposes & integrates
 │   ├── product-analyst.md       #   T2 guild leads
@@ -44,11 +48,12 @@ foundry/
 │   ├── gate-architecture/       #   fitness function: contract/registry drift, layering, cycles
 │   ├── gate-security/           #   G3 checklist
 │   ├── gate-design/             #   WCAG 2.1 AA + design-system/token adherence
+│   ├── gate-integration/        #   G4: contract pairs + e2e + perf budget
 │   └── gate-release/            #   G5 checklist
 ├── commands/                    # the operator console (slash commands)
 │   ├── new-product.md  stack.md  design.md  commission.md  status.md
 │   ├── gate.md  reuse.md  review.md  harvest.md  postmortem.md
-│   ├── remember.md  recover.md  imprint.md
+│   ├── remember.md  recover.md  imprint.md  standards.md
 └── templates/                   # reference designs the factory STAMPS INTO a product
     ├── workspace/               #   pnpm/turbo/tsconfig/eslint(flat)/prettier root
     │   └── scripts/             #   check-architecture.mjs (the gate-architecture script)
@@ -66,6 +71,7 @@ foundry/
     ├── build-plan-template.md   #   ordered units + ordering heuristics
     ├── unit-spec-template.md    #   per-unit spec w/ Verify-when-done checklist
     ├── commission-runbook.md    #   operator step-by-step: scaffold → commission → ship
+    ├── factory-metrics.md       #   the factory scoreboard (reuse ratio, human-touch, cost)
     ├── adr-template.md
     └── spec-template.md
 ```
@@ -76,63 +82,74 @@ portable and product-free; **templates/** is the factory's reference-design libr
 
 ## Install the factory
 
-This repo ships its own marketplace manifest (`.claude-plugin/marketplace.json` + `plugin.json`
-at the root), so it's installable as a plugin.
+This repo ships its own marketplace manifest (`.claude-plugin/marketplace.json` + `plugin.json`),
+so it installs as a plugin. Pick ONE of the three routes.
 
-### In Claude Code (CLI) — recommended
-Launch Claude, then use the interactive plugin manager:
+> **One rule the plugin system imposes:** a plugin's own `CLAUDE.md` is **not** loaded into
+> context. The constitution only governs a product once it exists at that product's
+> `.claude/CLAUDE.md` — `/foundry:new-product` stamps it there automatically. If you point the
+> factory at an *existing* repo, copy it yourself: `cp CLAUDE.md <repo>/.claude/CLAUDE.md`.
 
-1. Open Claude Code.
-2. Run **`/plugin`**.
-3. Choose **Add marketplace** → enter `<owner>/foundry` (or the full
-   `https://github.com/<owner>/foundry` URL). A local path also works here.
-4. **Browse / Install → foundry.**
-
-To update later: `git push` your changes (bump the version in `plugin.json` + `marketplace.json`),
-then `/plugin` → update. Direct slash commands (run inside Claude):
+### A — Claude Code (CLI)
+```bash
+claude plugin marketplace add <owner>/foundry   # GitHub repo — or /path/to/foundry for local
+claude plugin install foundry@foundry-marketplace
+claude plugin list                              # verify version
 ```
-/plugin marketplace add <owner>/foundry     # GitHub repo — or /path/to/foundry for a local folder
-/plugin install foundry@foundry-marketplace
-```
+(Or interactively: `/plugin` → Add marketplace → Browse & install.)
+Update later: bump the version in `plugin.json` + `marketplace.json`, push, then
+`claude plugin update foundry`. Local-path marketplaces pick up changes on update too.
 
-### In the Claude app (Cowork)
-The app installs from a **GitHub marketplace** (push this repo first): **Cowork tab → Customize
-(sidebar) → Plugins → Add marketplace** → `<owner>/foundry` → **Browse plugins → foundry →
-Install.**
+### B — Claude app (Cowork)
+Cowork installs from a **GitHub** marketplace, so push this repo first. Then: **Customize →
+Plugins → Personal plugins → + → Add marketplace** → `<owner>/foundry` → install **foundry**.
 
-### Manual (any repo) — copy into `.claude/`
+### C — Manual (single repo, no plugin)
+Copy the factory straight into one product repo:
 ```bash
 mkdir -p .claude
 cp CLAUDE.md .claude/CLAUDE.md
 cp -R agents skills commands .claude/
 ```
+Note: with manual copy the commands are **un-namespaced** (`/commission`, not
+`/foundry:commission`), and updates mean re-copying.
 
-## How you operate it
+## Run it (first product, end to end)
 
-Commands are namespaced `/foundry:<command>` once installed. Run them from the product root.
+Commands are namespaced `/foundry:<command>` when installed as a plugin (routes A/B).
 
-1. `/foundry:new-product <name>` — scaffold a fresh product workspace (in the current folder). It
-   runs stack then design first, so **you choose the tech stack and the design system** (profiles in
-   `templates/stack-profiles.md` and `templates/design-profiles.md`); library versions are
-   web-verified to latest stable before anything is pinned.
-2. `/foundry:commission "<what to build>"` — capture the brief (gate **G0**); the `orchestrator`
-   decomposes it and runs the line.
-3. Approve the architecture at `/foundry:gate G1` — your highest-leverage decision.
-4. Workers build in parallel; **G2–G4** run in CI from the stamped workflows.
-5. Approve `/foundry:gate G5` to release; `ops-analyst` watches **G6**.
-6. Curate the catalog with `/foundry:harvest`; raise the bar by editing `CLAUDE.md`.
+1. **`cd` into an empty folder** where the product should live — **outside** the factory repo.
+2. **`/foundry:new-product <name>`** — one command scaffolds everything. It walks you through
+   the two setup decisions — **stack** (`templates/stack-profiles.md`) and **design system**
+   (`templates/design-profiles.md`), both recorded as ADRs, versions web-verified to latest
+   stable — then presses the templates: workspace config, CI gates, context pack, `AGENTS.md`,
+   the constitution at `.claude/CLAUDE.md`, and one seed module so all gates are green on day
+   one. (To change stack/design later: `/foundry:stack`, `/foundry:design`.)
+3. **`/foundry:commission "<brief>"`** — what/why/users/scope/non-scope/acceptance
+   criteria/constraints/success. Approve the brief at **G0**; the `orchestrator` runs the line.
+4. **`/foundry:gate G1`** — review reference design, reuse-vs-build, contracts, ADR. Your
+   highest-leverage decision.
+5. Workers build in parallel; **G2–G4** run in CI from the stamped workflows. Check in with
+   `/foundry:status`.
+6. **`/foundry:gate G5`** to ship; `ops-analyst` watches **G6**.
 
-Full step-by-step: `templates/commission-runbook.md`.
+Session habits: `/foundry:remember save` at the end of a session, `restore` at the start of the
+next; `/foundry:imprint` after building UI; `/foundry:recover` when stuck after one failed fix.
+Improve the factory: `/foundry:harvest` (grow the catalog), `/foundry:standards` (raise the bar),
+`templates/factory-metrics.md` (is it compounding?).
+
+Full step-by-step with a worked example: `templates/commission-runbook.md` (stamped into each
+product as `docs/commission-runbook.md`).
 
 If you find yourself hand-building, a module or agent is missing — add it to the factory
 rather than absorbing the work. That's the whole thesis.
 
 ## Status
 
-- ✅ Factory built: constitution, 19 agents, 14 skills, 13 commands (plugin v0.4.0).
+- ✅ Factory built: constitution, 19 agents, 15 skills, 14 commands (plugin v0.5.0).
 - ✅ Reference-design templates: workspace (+ `gate-architecture` fitness-function script), CI
   gates, C4-style reference-design blueprints, module skeleton, schemas, stack/design profiles,
-  context pack, build-plan + unit-spec, commission runbook, ADR/spec.
+  context pack, build-plan + unit-spec, commission runbook, factory scoreboard, ADR/spec.
 - ⏳ Next: install/update the plugin, `/foundry:new-product` your first product, then commission it.
 
 The factory is deliberately empty of products. Point it at whatever you want to build.

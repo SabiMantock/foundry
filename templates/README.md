@@ -10,7 +10,7 @@ templates/
 │   ├── package.json   #   pnpm workspace + gate scripts (gate:code, gate:integration, ...)
 │   ├── pnpm-workspace.yaml, turbo.json
 │   ├── tsconfig.base.json      # strict TS baseline all packages extend
-│   ├── .eslintrc.cjs           # standards + CONTRACT-ONLY import enforcement
+│   ├── eslint.config.mjs       # standards + CONTRACT-ONLY import enforcement (flat config)
 │   ├── .prettierrc.json, .gitignore, .env.example
 ├── ci/                # the quality gates as CI (copied to a product's .github/)
 │   ├── gate-code.yml        # G2: format, lint, types, unit
@@ -24,6 +24,7 @@ templates/
 ├── schemas/           # the shapes contracts and catalog entries follow
 │   ├── contract.example.yaml
 │   └── registry-index.example.yaml
+├── factory-metrics.md # the factory scoreboard (reuse ratio, human-touch ratio, cost)
 ├── adr-template.md    # architecture decision record (architect writes these at G1)
 └── spec-template.md   # product/feature spec (product-analyst writes these at G0)
 ```
